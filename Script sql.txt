@@ -1,0 +1,50 @@
+CREATE TABLE Groupes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Etudiants (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    prenom VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    groupe_id INT,
+    photo VARCHAR(255),
+    FOREIGN KEY (groupe_id) REFERENCES Groupes(id)
+);
+
+CREATE TABLE Enseignants (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    prenom VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Cours (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titre VARCHAR(200) NOT NULL,
+    date DATE NOT NULL,
+    enseignant_id INT,
+    duree INT NOT NULL,
+    groupe_id INT,
+    FOREIGN KEY (enseignant_id) REFERENCES Enseignants(id),
+    FOREIGN KEY (groupe_id) REFERENCES Groupes(id)
+);
+
+CREATE TABLE Absences (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    etudiant_id INT,
+    cours_id INT,
+    justifie BOOLEAN DEFAULT FALSE,
+    justification TEXT,
+    FOREIGN KEY (etudiant_id) REFERENCES Etudiants(id),
+    FOREIGN KEY (cours_id) REFERENCES Cours(id)
+);
+
+ Insertion des données : ...
+
+INSERT INTO Groupes (nom) VALUES ...
+INSERT INTO Enseignants (nom, prenom, email) 
+INSERT INTO Etudiants (nom, prenom, email, groupe_id, photo)  
+INSERT INTO Cours (titre, date, enseignant_id, duree, groupe_id) 
+INSERT INTO Absences (etudiant_id, cours_id, justifie, justification) 
