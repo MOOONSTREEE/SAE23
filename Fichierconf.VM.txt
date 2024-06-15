@@ -1,0 +1,20 @@
+VirtualHost *:80>
+
+        ErrorLog /django-project/site/logs/error.log
+        CustomLog /django-project/site/logs/access.log combine
+
+        <Directory /django-project/src/Gestion>
+        <Files wsgi.py>
+                Require all granted
+        </Files>
+        </Directory>
+
+        WSGIDaemonProcess Gestion python-home=/django-project/venv python-path=>
+        WSGIProcessGroup Gestion
+        WSGIScriptAlias / /django-project/src/Gestion/wsgi.py
+
+        alias /static /django-project/site/public/static
+        <Directory /django-project/site/public/static>
+                Require all granted
+
+        </Directory>    
